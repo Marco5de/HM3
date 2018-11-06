@@ -30,7 +30,7 @@ int main(int argc, char **argv){
 	printf("DeltaT stepwidth: %s\n",argv[1]);
 	printf("y0 starting point: %s\n",argv[2]);
 	printf("t0 as starting point: %s\n",argv[3]);
-	printf("Number of points: %s\n",argv[4]);
+	printf("t_final endpoint: %s\n",argv[4]);
 	
 
 	//not handling any errors that may occur
