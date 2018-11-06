@@ -53,7 +53,7 @@ int main(int argc, char **argv){
 	y_output[0] = y0;
 	for(int i = 1; i < max; i++){
 		y_output[i] = runge_kutta(deltaT, y_output[i-1],t0,funcptr);	
-		printf("%10.2f    %10.2f\n",t0+1,y_output[i]);
+		printf("%10.2f    %10.2f\n",t0+deltaT,y_output[i]);
 		t0 += deltaT;
 	}
 }
