@@ -1,16 +1,15 @@
 #include <stdio.h>
 #include <math.h>
 
-
 double runge_kutta(double deltaT, double y0, double t0, double (*phi)(double,double));
 
 /*******************************************************************************
 *
 * USER CAN DEFINE HIS/HER OWN FUNCTION BELOW
-*
+* 
 ********************************************************************************/
 double phi(double t, double y){
-	return -sin(t);
+	return 1 - y*y;
 }
 
 
@@ -23,10 +22,13 @@ double phi(double t, double y){
 *
 * MATH LIBARY MUST BE LINKED WHEN BUILDING THE EXECUTEABLE
 * UNDER LINUX USE gcc -Wall -o runge_kutta runge_kutta.c -lm
+* use $ time ./output.out for time measurement
+*
+* program writes result in file
 ********************************************************************************/
 
 int main(int argc, char **argv){
-
+	
 	printf("DeltaT stepwidth: %s\n",argv[1]);
 	printf("y0 starting point: %s\n",argv[2]);
 	printf("t0 as starting point: %s\n",argv[3]);
@@ -48,14 +50,23 @@ int main(int argc, char **argv){
 	
 	printf("%10.2f   %10.2f\n",t0,y0);
 	
+	FILE *f = fopen("kuttaoutput.txt","w");
+
+
+
 	double y_output[max];
+
+	fprintf(f,"%f,%f\n",t0,y0);
 	// i is the current iteration 
 	y_output[0] = y0;
 	for(int i = 1; i < max; i++){
 		y_output[i] = runge_kutta(deltaT, y_output[i-1],t0,funcptr);	
 		printf("%10.2f    %10.2f\n",t0+deltaT,y_output[i]);
 		t0 += deltaT;
+		fprintf(f,"%f,%f\n",t0,y_output[i]);	
 	}
+	fclose(f);
+
 }
 /*
 * Computation of the next point y_i+1
